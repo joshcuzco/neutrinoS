@@ -1,0 +1,3 @@
+2 nucleo_interno
+5 nucleo_externo
+10 manto
