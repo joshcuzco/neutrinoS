@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from Layers import Layer
+from Layers import Layers, Layer
 
 def cot(x):
 	return 1/np.tan(x)
@@ -9,15 +9,19 @@ class Baseline:
 	"""baseline for a neutrino crossing the Earth"""
 
 	#the layers crossed by the neutrino depend on the angle of the baseline
-	def __init__(self,angle):
-		self.angle=angle
+	def __init__(self,filename):
+		with open(filename,'r') as l:
+			self.angle=float(l.read())
+		#complementary angle
 		self.compAngle=np.pi/2 - self.angle
 
 	#need to find the points where the baseline crosses to another layer
-	def crosspoints(self,layers):
+	def crosspoints(self,LayerList):
 		self.CP=[]
 		self.distances=[]
-		self.R=Layer.R
+		self.R=LayerList.R
+
+		layers=LayerList.layers
 
 		for layer in layers:
 			#doesn't cross the layer if the baseline angle is greater than the layer MaxAngle
@@ -25,11 +29,13 @@ class Baseline:
 				S=np.sqrt(self.R**2 -(self.R**2 - layer.r**2)*(1+(cot(self.compAngle))**2))
 				D=1+(cot(self.compAngle))**2
 
+				#crosspoint's coordinates
 				y1=(self.R+S)/D
 				p1=(cot(self.compAngle)*y1,y1)
 				y2=(self.R-S)/D
 				p2=(cot(self.compAngle)*y2,y2)
 
+				#distance from the crosspoint to the origin
 				d1=np.sqrt(p1[0]**2+p1[1]**2)
 				d2=np.sqrt(p2[0]**2+p2[1]**2)
 

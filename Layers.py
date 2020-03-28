@@ -24,7 +24,7 @@ class Layers:
 		for r in radii:
 			self.layers.append(Layer(r))
 
-	#a method to plot all layers
+	#a method to plot all layers together
 	def plot(self):
 		for layer in self.layers:
 			layer.plot()
@@ -38,7 +38,7 @@ class Layer:
 		#if the baseline angle is greater than this the neutrino will not cross the layer
 		self.MaxAngle=np.arcsin(self.r/self.R)
 
-	#a handy method to plot the layer circle
+	#a method to plot the layer circle
 	def plot(self):
 		x=np.linspace(-self.r,self.r,100)
 		y=np.linspace(self.R-self.r,self.R+self.r,100)
@@ -46,3 +46,11 @@ class Layer:
 		C=X**2+(Y-self.R)**2-self.r**2
 		plt.contour(X,Y,C,[0])
 
+	#a method to plot the MaxAngle line
+	def plotMaxAngle(self):
+		self.plot()
+		x=np.linspace(-self.r,self.r,100)
+		y=np.linspace(0,2*self.R,100)
+		X,Y=np.meshgrid(x,y)
+		Z=Y-np.tan(np.pi/2-self.MaxAngle)*X
+		plt.contour(X,Y,Z,[0])

@@ -7,12 +7,10 @@ from Baseline import Baseline
 layers=Layers('layers.txt')
 
 #setting up the baseline b
-with open ('baseline.txt','r') as l:
-	bAngle=float(l.read())
+baseline=Baseline('baseline.txt')
+baseline.crosspoints(layers)
 
-b=Baseline(bAngle)
-#b.crosspoints(layers)
+layers.plot()
+baseline.plot()
 
-#b.plot()
-
-#plt.show()
+plt.show()
