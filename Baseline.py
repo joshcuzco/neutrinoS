@@ -19,6 +19,8 @@ class Baseline:
 	def crosspoints(self,LayerList):
 		self.CP=[]
 		self.distances=[]
+		self.segments=[]
+
 		self.R=LayerList.R
 
 		layers=LayerList.layers
@@ -44,6 +46,13 @@ class Baseline:
 				self.CP.append(p1)
 				self.CP.append(p2)
 
+		#segment the baseline: find the distance between crosspoints
+		self.distances.sort(reverse=True)
+
+		for i in range(len(self.distances)-1):
+			self.segments.append(self.distances[i]-self.distances[i+1])
+
+	#plot the baseline
 	def plot(self):
 		x=np.linspace(0,self.R,100)
 		y=np.linspace(0,2*self.R,100)
