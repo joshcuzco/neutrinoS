@@ -2,7 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Layers:
-	"""the layers of a planet from a file"""
+	"""
+	the layers of a planet from a file
+	"""
 
 	def __init__(self,filename):
 		#the layer list will contain all layers as Layer objects
@@ -31,7 +33,9 @@ class Layers:
 
 
 class Layer:
-	"""an individual layer of radius r"""
+	"""
+	an individual layer of radius r
+	"""
 
 	def __init__(self,r):
 		self.r=r

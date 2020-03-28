@@ -14,7 +14,8 @@ baseline=Baseline('baseline.txt')
 #segmenting the baseline
 baseline.crosspoints(layers)
 
-print(baseline.segments)
+for segment in baseline.segments:
+	print(segment.l)
 
 #visualizing
 layers.plot()
