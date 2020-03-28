@@ -3,36 +3,32 @@ import matplotlib.pyplot as plt
 from Layers import Layer
 from Baseline import Baseline
 
-layers=[]
-radii=[]
-
+#setting up layers
 with open('layers.txt','r') as l:
 	lines=l.readlines()
-	
-for line in lines:
-	layers.append(line.split(' '))
-	radii.append(float(line.split(' ')[0]))
 
+radii=[]
+for line in lines:
+	radii.append(float(line))
+
+#radius of the outermost layer
 Layer.R=max(radii)
 
-L=[]
+layers=[]
+
+for r in radii:
+	layers.append(Layer(r))
+
+#setting up the baseline b
+with open ('baseline.txt','r') as l:
+	bAngle=float(l.read())
+
+b=Baseline(bAngle)
+b.crosspoints(layers)
 
 for layer in layers:
-	L.append(Layer(float(layer[0]),layer[1]))
-
-b=Baseline(np.pi/16)
-b.crosspoints(L)
-
-for l in L:
-	l.plot()
+	layer.plot()
 
 b.plot()
 
 plt.show()
-
-for layer in L:
-	print(layer.r,layer.name,layer.MaxAngle)
-
-print(Layer.R)
-print(b.R)
-

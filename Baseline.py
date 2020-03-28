@@ -16,7 +16,7 @@ class Baseline:
 	#need to find the points where the baseline crosses to another layer
 	def crosspoints(self,layers):
 		self.CP=[]
-		self.allCP=[]
+		self.distances=[]
 		self.R=Layer.R
 
 		for layer in layers:
@@ -30,9 +30,13 @@ class Baseline:
 				y2=(self.R-S)/D
 				p2=(cot(self.compAngle)*y2,y2)
 
-				self.allCP.append(p1)
-				self.allCP.append(p2)
-				self.CP.append([layer.name,[p1,p2]])
+				d1=np.sqrt(p1[0]**2+p1[1]**2)
+				d2=np.sqrt(p2[0]**2+p2[1]**2)
+
+				self.distances.append(d1)
+				self.distances.append(d2)
+				self.CP.append(p1)
+				self.CP.append(p2)
 
 	def plot(self):
 		x=np.linspace(0,self.R,100)
@@ -41,7 +45,6 @@ class Baseline:
 		F=Y-np.tan(self.compAngle)*X
 		plt.contour(X,Y,F,[0])
 
-		for cps in self.CP:
-			for crosspoint in cps[1]:
-				plt.scatter(crosspoint[0],crosspoint[1])
+		for crosspoint in self.CP:
+			plt.scatter(crosspoint[0],crosspoint[1])
 

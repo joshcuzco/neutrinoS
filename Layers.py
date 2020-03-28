@@ -8,9 +8,8 @@ class Layer:
 	R=0
 
 	#every individual layer is a Layer object
-	def __init__(self,r,name):
+	def __init__(self,r):
 		self.r=r
-		self.name=name
 		#if the baseline angle is greater than this the neutrino will not cross the layer
 		self.MaxAngle=np.arcsin(self.r/self.R)
 
