@@ -1,13 +1,38 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+class Layers:
+	"""the layers of a planet from a file"""
+
+	def __init__(self,filename):
+		#the layer list will contain all layers as Layer objects
+		self.layers=[]
+
+		#file reading
+		radii=[]
+		with open(filename,'r') as l:
+			lines=l.readlines()
+
+		for line in lines:
+			radii.append(float(line))
+
+		#finding the radius of the outermost layer
+		self.R=max(radii)
+		Layer.R=self.R
+
+		#each radius defines a Layer object
+		for r in radii:
+			self.layers.append(Layer(r))
+
+	#a method to plot all layers
+	def plot(self):
+		for layer in self.layers:
+			layer.plot()
+
+
 class Layer:
-	"""managing the layers of a planet of radius R"""
+	"""an individual layer of radius r"""
 
-	#the maximum radius is a global variable
-	R=0
-
-	#every individual layer is a Layer object
 	def __init__(self,r):
 		self.r=r
 		#if the baseline angle is greater than this the neutrino will not cross the layer
