@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import numpy as np
 import matplotlib.pyplot as plt
 from Layers import Layers, Layer
@@ -14,10 +16,16 @@ baseline=Baseline('baseline.txt')
 #segmenting the baseline
 baseline.crosspoints(layers)
 
-for segment in baseline.segments:
-	print(segment.l)
-
 #visualizing
 layers.plot()
 baseline.plot()
-plt.show()
+#plt.show()
+plt.savefig('output.png')
+
+#writing output
+with open('output.txt','w') as o:
+	print('#número de capas',layers.n,file=o)
+	print('#segmentos recorridos',file=o)
+	print('#segmento\tlongitud',file=o)
+	for segment in baseline.segments:
+		print(segment.tag,'\t',segment.l,file=o)

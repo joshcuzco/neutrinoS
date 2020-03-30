@@ -53,7 +53,7 @@ class Baseline:
 		self.distances.sort(reverse=True)
 
 		for i in range(len(self.distances)-1):
-			self.segments.append(Segment(self.distances[i]-self.distances[i+1],i))
+			self.segments.append(Segment(self.distances[i]-self.distances[i+1],i+1))
 
 	#plot the baseline
 	def plot(self):
@@ -77,5 +77,4 @@ class Segment:
 		#size of segment
 		self.l=l
 		#electron density of segment
-		self.ne=0
-		
+		self.ne=0		

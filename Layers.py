@@ -26,6 +26,9 @@ class Layers:
 		for r in radii:
 			self.layers.append(Layer(r))
 
+		#número de capas
+		self.n=len(self.layers)
+
 	#a method to plot all layers together
 	def plot(self):
 		for layer in self.layers:
