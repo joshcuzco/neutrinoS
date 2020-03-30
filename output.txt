@@ -1,0 +1,8 @@
+#número de capas 3
+#segmentos recorridos
+#segmento	longitud
+1 	 5.20416117421
+2 	 4.16326386042
+3 	 0.880855538212
+4 	 4.16326386042
+5 	 5.20416117421
