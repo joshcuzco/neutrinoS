@@ -16,6 +16,6 @@ class neutrino:
 		self.angle=a*np.pi/180
 
 #example
-n=neutrino(1,15)
+n=neutrino(1000000000,80)
 St=MLP.Propagate(n)
 print(abs(St[0]),abs(St[1]))
