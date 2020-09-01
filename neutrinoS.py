@@ -9,6 +9,7 @@ Simulation main program.
 """
 
 SIformat=EF(unit='eV',places=0)
+SIfileformat=EF(unit='eV',places=0,sep='')
 
 class neutrino:
 	"""
@@ -41,7 +42,7 @@ def angularD(n):
 			plt.axvline(x=layer.MaxAngleGrad,color='red')
 	plt.plot(range(0,90),probTrans)
 
-	plt.savefig('figures/probTrans{:}'.format(SIformat(n.E)),format='pdf')
+	plt.savefig('figures/probTrans{:}.pdf'.format(SIfileformat(n.E)),format='pdf')
 	plt.close()
 
 #Winter says 100MeV-1GeV
