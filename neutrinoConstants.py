@@ -7,7 +7,7 @@ Module with known constants for neutrinos.
 #h-barra*c [eV*m]
 hc=0.19733e-6
 #FermiConstant [eV*m^3]
-G=(1.166e4)*(hc**3)
+G=(1.166e-23)*(hc**3)
 
 #neutrino parameters from:
 #Tanabashi et al. (Particle Data Group), Phys Rev. D 98, (2018) and 2019 update

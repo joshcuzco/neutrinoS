@@ -93,7 +93,7 @@ def GetBaseline(neutrino,GetCrossPoints=False):
 	k=len(baseline)
 
 	#let's assign densities for the corresponding segments of the baseline
-	for i in range(0,1+k/2):
+	for i in range(0,1+k//2):
 		ne=EM.layers[-1-i].ne
 		baseline[i].ne=ne
 		baseline[-1-i].ne=ne

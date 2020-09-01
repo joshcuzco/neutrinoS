@@ -12,8 +12,8 @@ Requires the file EarthModel.txt with data:
 #density constants
 #electron fraction
 f=0.5
-#nucleon mass [kg] (using proton mass)
-m=1.6726e-27
+#nucleon mass [kg] (using average of proton and neutron masses)
+m=1.6738e-27
 
 #---------------------------------------------------------------------
 
@@ -25,9 +25,11 @@ class Layer:
 	def __init__(self,layer):
 		#takes a layer from EarthModel [radius,e density] as input
 		self.r=layer[0]
-		self.ne=f*layer[1]/m
+		self.rho=layer[1]
+		self.ne=f*self.rho/m
 		#if the baseline angle is greater than this the neutrino will not cross the layer
 		self.MaxAngle=np.arcsin(self.r/R)
+		self.MaxAngleGrad=self.MaxAngle*(180/np.pi)
 
 	#a method to plot the layer circle
 	def plot(self):

@@ -19,15 +19,15 @@ class Smatrix:
 		#properties of the medium
 		#matter potential
 		self.V=np.sqrt(2)*nC.G*n
+		#resonance factor
+		self.R=nC.s2T**2+(nC.c2T-self.V/D)**2
 		#matter oscilation frequency
-		self.Dm=D*np.sqrt(nC.s2T**2+(nC.c2T-self.V/D)**2)
-		#squared root of the resonance factor
-		self.sqrtR=self.Dm/D
+		self.Dm=D*np.sqrt(self.R)
 		#mixing angle in matter
-		self.s2t=(1/self.sqrtR)*nC.s2T
-		self.c2t=(1/self.sqrtR)*(nC.c2T-self.V/D)
+		self.s2t=(1/np.sqrt(self.R))*nC.s2T
+		self.c2t=(1/np.sqrt(self.R))*(nC.c2T-self.V/D)
 		#half oscilation frequency
-		self.f=0.5*self.Dm*x
+		self.f=0.5*self.Dm*x/nC.hc
 		
 		#the shape of the evolution matrix is
 		#	S=(a   b )
@@ -57,7 +57,7 @@ I=[1,0]
 #--------------------------------------------------------------------
 
 def Propagate(neutrino):
-	#vacuum oscilation frequency
+	#vacuum oscilation frequency, in natural units
 	D=nC.dm/(2*neutrino.E)
 
 	#need a baseline to propagate along
