@@ -61,7 +61,7 @@ def Propagate(neutrino):
 	D=nC.dm/(2*neutrino.E)
 
 	#need a baseline to propagate along
-	baseline=BC.GetBaseline(neutrino)
+	baseline=BC.GetBaseline(neutrino.angle)
 
 	#generating S matrices for every segment of the baseline
 	Smatrices=[]

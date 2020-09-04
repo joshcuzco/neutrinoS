@@ -13,17 +13,16 @@ def cot(x):
 
 #--------------------------------------------------------------------
 
-def BaselinePlot(neutrino):
+def BaselinePlot(angle):
 	"""
 	Plot the baseline, just for fun.
 	"""
 	#the layers crossed by the neutrino depend on the angle of the baseline
-	angle=neutrino.angle
 	#complementary angle
 	compAngle=np.pi/2-angle	
 
 	#need the CrossPoints to plot
-	CrossPoints=GetBaseline(neutrino,True)
+	CrossPoints=GetBaseline(angle,True)
 
 	x=np.linspace(0,EM.R,100)
 	y=np.linspace(0,2*EM.R,100)
@@ -46,10 +45,9 @@ class Segment:
 
 #--------------------------------------------------------------------
 
-def GetBaseline(neutrino,GetCrossPoints=False):
+def GetBaseline(angle,GetCrossPoints=False):
 
 	#the layers crossed by the neutrino depend on the angle of the baseline
-	angle=neutrino.angle
 	#complementary angle
 	compAngle=np.pi/2-angle
 

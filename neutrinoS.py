@@ -48,7 +48,8 @@ def angularD(n):
 #Winter says 100MeV-1GeV
 #would be interesting to see up to 50GeV
 
-energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
+#energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
+energiesList=[100e6,110e6,120e6,130e6,140e6,150e6,160e6,170e6,180e6,190e6]
 
 for E in energiesList:
 	n=neutrino(E)
