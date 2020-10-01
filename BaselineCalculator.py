@@ -13,7 +13,7 @@ def cot(x):
 
 #--------------------------------------------------------------------
 
-def BaselinePlot(angle):
+def BaselinePlot(angle,model):
 	"""
 	Plot the baseline, just for fun.
 	"""
@@ -24,8 +24,8 @@ def BaselinePlot(angle):
 	#need the CrossPoints to plot
 	CrossPoints=GetBaseline(angle,True)
 
-	x=np.linspace(0,EM.R,100)
-	y=np.linspace(0,2*EM.R,100)
+	x=np.linspace(0,model.R,100)
+	y=np.linspace(0,2*model.R,100)
 	X,Y=np.meshgrid(x,y)
 	F=Y-np.tan(compAngle)*X
 	plt.contour(X,Y,F,[0])
@@ -45,7 +45,7 @@ class Segment:
 
 #--------------------------------------------------------------------
 
-def GetBaseline(angle,GetCrossPoints=False):
+def GetBaseline(angle,model,GetCrossPoints=False):
 
 	#the layers crossed by the neutrino depend on the angle of the baseline
 	#complementary angle
@@ -55,16 +55,16 @@ def GetBaseline(angle,GetCrossPoints=False):
 	CrossPoints=[]
 	distances=[]
 
-	for layer in EM.layers:
+	for layer in model.layers:
 		#doesn't cross the layer if the baseline angle is greater than the layer's MaxAngle 
 		if (angle<layer.MaxAngle):
-			S=np.sqrt(EM.R**2-(EM.R**2-layer.r**2)*(1+(cot(compAngle))**2))
+			S=np.sqrt(model.R**2-(model.R**2-layer.r**2)*(1+(cot(compAngle))**2))
 			D=1+(cot(compAngle))**2
 
 			#crosspoint's coordinates
-			y1=(EM.R+S)/D
+			y1=(model.R+S)/D
 			p1=(cot(compAngle)*y1,y1)
-			y2=(EM.R-S)/D
+			y2=(model.R-S)/D
 			p2=(cot(compAngle)*y2,y2)
 
 			#distance from the crosspoint to the origin
@@ -92,7 +92,7 @@ def GetBaseline(angle,GetCrossPoints=False):
 
 	#let's assign densities for the corresponding segments of the baseline
 	for i in range(0,1+k//2):
-		ne=EM.layers[-1-i].ne
+		ne=model.layers[-1-i].ne
 		baseline[i].ne=ne
 		baseline[-1-i].ne=ne
 

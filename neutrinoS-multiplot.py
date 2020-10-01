@@ -25,43 +25,46 @@ class neutrino:
 		#convert to radians
 		self.angle=a*np.pi/180
 
-def angularD(n):
+def angularD(n,model):
 	probTrans=[]
 	for angle in range(0,90):
 		n.neutrinoAngle(angle)
-		St=MLP.Propagate(n)
+		St=MLP.Propagate(n,model)
 		probTrans.append(abs(St[1]))
 
 	return probTrans
 
-#Winter says 100MeV-1GeV
-#would be interesting to see up to 50GeV
+if __name__=='__main__':
 
-#energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
-#energiesList=[200e6,210e6,220e6,230e6,240e6,250e6]
-energiesList=[100e6,200e6,500e6,800e6,1e9,10e9]
+	earth=EM.Model()
 
-probs=[]
+	#Winter says 100MeV-1GeV
+	#would be interesting to see up to 50GeV
 
-for E in energiesList:
-	n=neutrino(E)
-	aD=angularD(n)
-	probs.append(aD)
+	#energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
+	#energiesList=[200e6,210e6,220e6,230e6,240e6,250e6]
+	energiesList=[100e6,500e6,1e9]
 
+	probs=[]
 
-plt.title(r'Probabilidad de oscilación $\nu_e\longrightarrow\nu_\mu$')
-plt.xlabel(r'$\alpha$')
-plt.ylabel(r'$P_{e\mu}$')
-plt.axis([0,90,0,1])
+	for E in energiesList:
+		n=neutrino(E)
+		aD=angularD(n,earth)
+		probs.append(aD)
 
-for layer in EM.layers:
-	if EM.layers.index(layer)!=EM.n-1:
-		plt.axvline(x=layer.MaxAngleGrad,color='black')
+	plt.title(r'Probabilidad de oscilación $\nu_e\longrightarrow\nu_\mu$')
+	plt.xlabel(r'$\alpha$')
+	plt.ylabel(r'$P_{e\mu}$')
+	plt.axis([0,90,0,1])
 
-for i in range(0,len(probs)):
-	line,=plt.plot(range(0,90),probs[i], label='{:}'.format(SIformat(energiesList[i])),linewidth=0.8)
+	for layer in earth.layers:
+		if earth.layers.index(layer)!=earth.n-1:
+			plt.axvline(x=layer.MaxAngleGrad,color='black')
 
-#plt.legend(loc=1)
-lgd=plt.legend(loc=1,bbox_to_anchor=(1.26,1))
+	for i in range(0,len(probs)):
+		line,=plt.plot(range(0,90),probs[i], label='{:}'.format(SIformat(energiesList[i])),linewidth=0.8)
 
-plt.savefig('figures/multi-probTrans.pdf',bbox_extra_artists=(lgd,),bbox_inches='tight',format='pdf')
+	#plt.legend(loc=1)
+	lgd=plt.legend(loc=1,bbox_to_anchor=(1.26,1))
+
+	plt.savefig('figures/3-probTrans.pdf',bbox_extra_artists=(lgd,),bbox_inches='tight',format='pdf')

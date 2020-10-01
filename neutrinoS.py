@@ -25,11 +25,11 @@ class neutrino:
 		#convert to radians
 		self.angle=a*np.pi/180
 
-def angularD(n):
+def angularD(n,model):
 	probTrans=[]
 	for angle in range(0,90):
 		n.neutrinoAngle(angle)
-		St=MLP.Propagate(n)
+		St=MLP.Propagate(n,model)
 		probTrans.append(abs(St[1]))
 
 	plt.title(r'Probabilidad de transición $\nu_e\longrightarrow\nu_\mu$, E={:}'.format(SIformat(n.E)))
@@ -37,8 +37,8 @@ def angularD(n):
 	plt.ylabel(r'$P_{e\mu}$')
 	plt.axis([0,90,0,1])
 
-	for layer in EM.layers:
-		if EM.layers.index(layer)!=EM.n-1:
+	for layer in model.layers:
+		if model.layers.index(layer)!=model.n-1:
 			plt.axvline(x=layer.MaxAngleGrad,color='red')
 	plt.plot(range(0,90),probTrans)
 
@@ -48,9 +48,13 @@ def angularD(n):
 #Winter says 100MeV-1GeV
 #would be interesting to see up to 50GeV
 
-energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
-#energiesList=[200e6,210e6,220e6,230e6,240e6,250e6]
+if __name__=='__main__':
 
-for E in energiesList:
-	n=neutrino(E)
-	angularD(n)
+	earth=EM.Model()
+
+	energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
+	#energiesList=[200e6,210e6,220e6,230e6,240e6,250e6]
+
+	for E in energiesList:
+		n=neutrino(E)
+		angularD(n,earth)

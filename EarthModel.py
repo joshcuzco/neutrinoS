@@ -22,7 +22,7 @@ class Layer:
 	All relevant info of a layer.
 	"""
 
-	def __init__(self,layer):
+	def __init__(self,layer,R):
 		#takes a layer from EarthModel [radius,e density] as input
 		self.r=layer[0]
 		self.rho=layer[1]
@@ -31,12 +31,14 @@ class Layer:
 		self.MaxAngle=np.arcsin(self.r/R)
 		self.MaxAngleGrad=self.MaxAngle*(180/np.pi)
 
+		self.R=R
+
 	#a method to plot the layer circle
 	def plot(self):
 		x=np.linspace(-self.r,self.r,100)
-		y=np.linspace(R-self.r,R+self.r,100)
+		y=np.linspace(self.R-self.r,self.R+self.r,100)
 		X,Y=np.meshgrid(x,y)
-		C=X**2+(Y-R)**2-self.r**2
+		C=X**2+(Y-self.R)**2-self.r**2
 		plt.contour(X,Y,C,[0])
 
 	#a method to plot the MaxAngle line
@@ -50,38 +52,40 @@ class Layer:
 
 #---------------------------------------------------------------------
 
-def LayersPlot():
-	"""
-	Plot all layers, just for fun.
-	"""
-	for layer in layers:
+class Model:
+
+	def __init__(self,modelFile=''):
+		#loading the model from a text file
+		if not modelFile:
+			modelFile='EarthModel.txt'
+
+		EarthModel=[]
+
+		with open(modelFile,'r') as model:
+			for layer in model:
+				if layer[0]!='#':
+					l=float(layer.split()[0])
+					rho=float(layer.split()[1])
+					EarthModel.append([l,rho])
+
+		#making sure its sorted from small to large
+		EarthModel.sort(key=lambda x:x[0])
+
+		#radius of the earth=outermost layer
+		self.R=EarthModel[-1][0]
+
+		#layers is a list of layer objects
+		self.layers=[]
+		for layer in EarthModel:
+			self.layers.append(Layer(layer,self.R))
+
+		#number of layers
+		self.n=len(self.layers)
+
+	#plotting for fun
+	def LayersPlot(self):
+		"""
+		Plot all layers, just for fun.
+		"""
+		for layer in self.layers:
 			layer.plot()
-
-#---------------------------------------------------------------------
-
-#loading the model from a text file
-
-EarthModel=[]
-
-with open('EarthModel.txt','r') as model:
-	for layer in model:
-		if layer[0]!='#':
-			l=float(layer.split()[0])
-			rho=float(layer.split()[1])
-			EarthModel.append([l,rho])
-
-#making sure its sorted from small to large
-EarthModel.sort(key=lambda x:x[0])
-
-#radius of the earth=outermost layer
-R=EarthModel[-1][0]
-
-#---------------------------------------------------------------------
-
-#I want an array with layer objects
-layers=[]
-for layer in EarthModel:
-	layers.append(Layer(layer))
-
-#number of layers
-n=len(layers)

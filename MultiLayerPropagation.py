@@ -56,12 +56,12 @@ I=[1,0]
 
 #--------------------------------------------------------------------
 
-def Propagate(neutrino):
+def Propagate(neutrino,model):
 	#vacuum oscilation frequency, in natural units
 	D=nC.dm/(2*neutrino.E)
 
 	#need a baseline to propagate along
-	baseline=BC.GetBaseline(neutrino.angle)
+	baseline=BC.GetBaseline(neutrino.angle,model)
 
 	#generating S matrices for every segment of the baseline
 	Smatrices=[]
