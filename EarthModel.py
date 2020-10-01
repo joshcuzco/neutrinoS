@@ -3,7 +3,13 @@ import matplotlib.pyplot as plt
 
 """
 This module contains the Earth Model for neutrino propagation.
-Requires the file EarthModel.txt with data:
+
+The model is read from a file, that can be specified when declaring
+the model:
+	model=Model('model.txt')
+Otherwise, will read from a default file EarthModel.txt 
+
+The data in the model file must read:
 	radious [m]	density [kg m**-3]
 """
 
@@ -53,6 +59,9 @@ class Layer:
 #---------------------------------------------------------------------
 
 class Model:
+	"""
+	An earth model that contains layers.
+	"""
 
 	def __init__(self,modelFile=''):
 		#loading the model from a text file
