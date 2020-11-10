@@ -1,0 +1,5 @@
+#the Earth modeled as layers of constant density
+#radius [m]	density [kg m**-3]
+1221500.0	6489.35
+3480000.0	5619.0
+6346600.0	5802.8403869788235

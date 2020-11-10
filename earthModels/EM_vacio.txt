@@ -1,0 +1,3 @@
+#the Earth modeled as layers of constant density
+#radius [m]	density [kg m**-3]
+6371e3	0
