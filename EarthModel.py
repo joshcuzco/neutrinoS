@@ -1,3 +1,21 @@
+#    Copyright (C) 2020
+#    J. Cuzco
+#    jcr131998@gmail.com
+#
+#    This program is free software: you can redistribute it and/or
+#    modify it under the terms of the GNU General Public License as
+#    published by the Free Software Foundation, either version 3 of
+#    the License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#    General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see
+#    <http://www.gnu.org/licenses/>.
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -28,10 +46,10 @@ class Layer:
 	All relevant info of a layer.
 	"""
 
-	def __init__(self,layer,R):
+	def __init__(self,r,rho,R):
 		#takes a layer from EarthModel [radius,e density] as input
-		self.r=layer[0]
-		self.rho=layer[1]
+		self.r=r
+		self.rho=rho
 		self.ne=f*self.rho/m
 		#if the baseline angle is greater than this the neutrino will not cross the layer
 		self.MaxAngle=np.arcsin(self.r/R)
@@ -86,7 +104,7 @@ class Model:
 		#layers is a list of layer objects
 		self.layers=[]
 		for layer in EarthModel:
-			self.layers.append(Layer(layer,self.R))
+			self.layers.append(Layer(layer[0],layer[1],self.R))
 
 		#number of layers
 		self.n=len(self.layers)
