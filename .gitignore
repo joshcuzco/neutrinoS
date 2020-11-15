@@ -1,2 +1,4 @@
 __pycache__
 *.pyc
+freq_plot.pdf
+freq_plot.py

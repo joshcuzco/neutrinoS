@@ -89,7 +89,8 @@ def angularD_multiplot(energiesList,model,savename=''):
 		aD=angularD(n,model)
 		probs.append(aD)
 
-	plt.title(r'Probabilidad de oscilación $\nu_e\longrightarrow\nu_\mu$, k={:}'.format(savename.replace('EM_','')))
+	plt.title(r'Probabilidad de oscilación $\nu_e\longrightarrow\nu_\mu$')
+#	plt.title(r'Probabilidad de oscilación $\nu_e\longrightarrow\nu_\mu$, k={:}'.format(savename.replace('EM_','')))
 	plt.xlabel(r'$\alpha$')
 	plt.ylabel(r'$P_{e\mu}$')
 	plt.axis([0,90,0,1])
@@ -116,10 +117,10 @@ if __name__=='__main__':
 	#what energies to use?
 	#Winter says 100MeV-1GeV
 	#would be interesting to see up to 50GeV
-#	energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
+	energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
 #	energiesList=[200e6,210e6,220e6,230e6,240e6,250e6]
 #	energiesList=[100e6,200e6,500e6,800e6,1e9,10e9]
-	energiesList=[100e6,500e6,1e9]
+#	energiesList=[100e6,500e6,1e9]
 
 	#plotting a bunch of individual plots
 #	earth=EM.Model()
@@ -131,6 +132,11 @@ if __name__=='__main__':
 #	earth=EM.Model()
 #	angularD_multiplot(energiesList,earth,'test')
 
-	for modelFile in os.listdir('earthModels'):
-		model=EM.Model('earthModels/'+modelFile)
-		angularD_multiplot(energiesList,model,modelFile.replace('.txt',''))
+	#uniform density multiplot
+	earth=EM.Model('earthModels/EM_uniform.txt')
+	angularD_multiplot(energiesList,earth,'multiplot_Uniform')
+
+	#multiplots for all models
+#	for modelFile in os.listdir('earthModels'):
+#		model=EM.Model('earthModels/'+modelFile)
+		#angularD_multiplot(energiesList,model,modelFile.replace('.txt',''))
