@@ -117,9 +117,9 @@ if __name__=='__main__':
 	#what energies to use?
 	#Winter says 100MeV-1GeV
 	#would be interesting to see up to 50GeV
-	energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
+	#energiesList=[100e6,200e6,300e6,400e6,500e6,600e6,700e6,800e6,900e6,1e9,10e9,20e9,30e9,40e9,50e9]
 #	energiesList=[200e6,210e6,220e6,230e6,240e6,250e6]
-#	energiesList=[100e6,200e6,500e6,800e6,1e9,10e9]
+	energiesList=[100e6,200e6,500e6,800e6,1e9,10e9]
 #	energiesList=[100e6,500e6,1e9]
 
 	#plotting a bunch of individual plots
@@ -129,12 +129,12 @@ if __name__=='__main__':
 #		angularD_indplot(n,earth)
 
 	#a multiplot
-#	earth=EM.Model()
-#	angularD_multiplot(energiesList,earth,'test')
+	earth=EM.Model()
+	angularD_multiplot(energiesList,earth)
 
 	#uniform density multiplot
-	earth=EM.Model('earthModels/EM_uniform.txt')
-	angularD_multiplot(energiesList,earth,'multiplot_Uniform')
+#	earth=EM.Model('earthModels/EM_uniform.txt')
+#	angularD_multiplot(energiesList,earth,'multiplot_Uniform')
 
 	#multiplots for all models
 #	for modelFile in os.listdir('earthModels'):
